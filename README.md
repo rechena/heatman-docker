@@ -1,7 +1,7 @@
-##Intro
+## Intro
 This Dockerimage is to be run with the [Heatman](https://github.com/nagius/heatman) tool.
 
-###How to run: 
+### How to run: 
 #### Simple start
 *  docker run --name heatman -d -p9292:9292 rechena/heatman
 
