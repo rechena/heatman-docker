@@ -1,0 +1,46 @@
+---
+title: "Heatman"
+# See https://github.com/jmettraux/rufus-scheduler for syntax
+timer: "5m"
+
+channels:
+  # Example for a two-state boiler control
+  boiler:
+    label: "Bathroom boiler"
+    command: "sudo /usr/local/sbin/boiler.sh"
+    modes:
+      - "on"
+      - "off"
+    schedules:
+        # See https://github.com/jrobertson/chronic_between for syntax and example
+        'on': "17:00-19:00"
+    default: "off"
+  
+  # Example for a three-state heater control
+  heater:
+    label: "Living room heater"
+    command: "sudo /usr/local/sbin/heaters.sh"
+    modes:
+      - "on"
+      - "off"
+      - "eco"
+    schedules:
+        # See https://github.com/jrobertson/chronic_between for syntax and example
+        'on': "Mon-Fri 7:00-8:30, Mon-Fri 17:00-23:00, Sat-Sun 9:00-23:00"
+        'off': "Wed 00:00-05:00"
+    default: "eco"
+
+sensors:
+  # Example of a sensor getting its value from a rrd file (allow history and graphs)
+  temp:
+    label: "Room temperature"
+    unit: "°C"
+    rrd: "/var/lib/rrd/room.rrd"
+    dsname: "temp"
+
+  # Example of a sensor getting its value from a script
+  power:
+    label: "Electric consumption"
+    unit: "w"
+    command: "/usr/local/bin/get_power.sh" 
+

@@ -1,0 +1,60 @@
+
+<div data-role="collapsible" id="sensors-box" data-inset="true" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
+	<legend>Sensors</legend>
+	<ul data-role="listview" data-dividertheme="b">
+	<% settings.sensors.each do |sensor, options| %>
+		<li>
+			<%= options['label'] %>: <span id="sensor-<%= sensor %>"></span><%= options['unit'] %>
+		</li>
+	<% end %>
+	</ul>
+</div>
+
+<ul data-role="listview" data-inset="true" data-dividertheme="b">
+        <li data-role="list-divider">Current mode</li>
+	<% settings.channels.each do |channel, options| %>
+		<li>
+			<h4><%= options["label"] %>
+				<span class="timeago" id="ts-<%= channel %>"></span>
+			</h4>
+			<form id=<%= channel %> class="overrides">
+				<fieldset data-role="controlgroup" data-type="horizontal" >
+					<% options["modes"].each do |mode| %>
+						<input id="<%= channel %>-<%= mode %>" value="list" type="radio">
+						<label for="<%= channel %>-<%= mode %>"><%= mode.capitalize %></label>
+					<% end %>
+					<input id="<%= channel %>-auto" value="list" type="radio">
+					<label for="<%= channel %>-auto">Auto</label>
+				</fieldset>
+				<label for="<%= channel %>-persistent">Persistent override:</label>
+				<input data-role="flipswitch" id="<%= channel %>-persistent" type="checkbox">
+			</form>
+		</li>
+	<% end %>
+</ul>
+
+
+<div data-role="collapsible" id="schedules-box" data-inset="true" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
+	<legend>Schedules</legend>
+	<form id="schedules">
+		<fieldset data-role="controlgroup" data-type="horizontal" >
+			<select id="sched-channel" data-native-menu="false">
+				<option disabled hidden selected> -- Channel -- </option>
+				<% settings.channels.each do |channel, option| %>
+					<option value="<%= channel %>"><%= channel.capitalize %></option>
+				<% end %>
+			</select>
+			<select id="sched-mode" data-native-menu="false">
+				<option disabled hidden selected> -- Mode -- </option>
+			</select>
+		</fieldset>
+
+		<input id="sched-date" type="text" data-role="datebox" data-options='{"mode":"flipbox"}' />
+		<input id="sched-time" type="text" data-role="datebox" data-options='{"mode":"timeflipbox"}' />
+
+		<input type="submit" value="Set">
+	</form>
+	<ul id="sched-list" data-role="listview" data-inset="true" data-dividertheme="b">
+		<li data-role="list-divider">Scheduled overrides</li>
+	</ul>	
+</div>
